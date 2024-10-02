@@ -8,9 +8,9 @@ import numpy as np
 Org_sv1 = [170, 160, 150, 145, 140, 130, 120, 110, 100, 90, 80, 70, 60, 50, 40, 40, 30] 
 Org_sv2 = [180, 175, 170, 160, 150, 135, 120, 110, 100, 90, 80, 70, 60, 50, 35, 25, 20] 
 Org_sv3=  [180, 180, 175, 175, 175, 175, 180, 175, 175, 175, 170, 170, 165, 160, 160, 160, 155]
-Hrz_sv1 = [-60,	-50, -40, -30, -20, -10, 0, 10, 20, 30 , 40, 50, 60]
-Hrz_sv2 = [0, 0, 0, 0, 0, 0, 0,	10, 20, 30, 40, 50, 60]
-Hrz_sv3 = [-60,	-50, -40, -30, -20, -10, 0, 0, 0, 0,0, 0, 0]
+Hrz_sv1 = [-60,	-50, -40, -30, -20,	-10, 0,	10,	20,	30,	40,	50,	60]
+Hrz_sv2 = [0, 0, 0,	0, 0, 0, 0,	10,	20,	30,	40,	50,	60]
+Hrz_sv3 = [-60,	-50, -40, -30, -20,	-10, 0,	0, 0, 0, 0,	0, 0]
 
 
 global ch_sv, d
@@ -18,7 +18,7 @@ global x_idx, y_idx
 x_idx = 6
 y_idx = 7
 ch_sv = []
-d=[8.4, 7.7, 13]
+d=[8.4, 7.7, 13] # link length 
 
 
 #figure = plt.figure()
@@ -52,7 +52,7 @@ def over_under_chk():
     angle3 = angle2 + Org_sv3[y_idx]+Hrz_sv3[x_idx]-90
     if angle1 > 180 or angle1 <0 or angle2 > 180 or angle2 <0 or angle3 > 180 or angle3 <0: return False
     return True
-def robot_command(cmd):
+def robot_command(cmd): 
     global y_idx, x_idx
     if cmd == 'w' :
         if y_idx+1 <= 16 :
