@@ -190,7 +190,7 @@ def main():
     client.on_disconnect = on_disconnect
     client.message_callback_add('esp32/sensor1', callback_esp32_sensor1)
 
-    client.connect('192.168.137.69', 1883)
+    client.connect('0.0.0.0', 1883)
     client.loop_start()
     client_subscriptions(client)
 
