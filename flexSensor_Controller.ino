@@ -9,15 +9,13 @@
 #include <Wire.h>
 
 // Replace the SSID/Password details as per your wifi router
+
 const char* ssid = " ";
 const char* password = " ";
 
-/*const char* ssid = "yen";
-const char* password = "19951225";*/
-
 // Replace your MQTT Broker IP address here:
-//const char* mqtt_server = "172.20.10.2";
-//const char* mqtt_server = "192.168.137.69";
+//const char* mqtt_server = " ";
+const char* mqtt_server = "0.0.0.0";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -26,7 +24,7 @@ long lastMsg = 0; //마지막으로 보낸 MQTT 메세지 시간 측정
 
 /*플렉스센서 처리 코드 선언*/
 const int flexPins[] = {32, 33, 34, 35};  // 센서와 연결된 아날로그 핀 배열
-const int Max_Val = 3400;  // 임계값 (3200아래로가면)
+const int Max_Val = 3500;  // 임계값 (3200아래로가면)
 const int Min_Count = 16;  // 임계값을 초과하는 값이 10개 중 4개 이상이면 '1' 반환
 const int numReadings = 40;  // 플렉스센서를 읽는 횟수 10회
 
@@ -102,9 +100,9 @@ void determineCommand() {
       command = 6;
       break;
 
-    case 7: //0111 검지 중지 약지 
-     // Serial.println("Command: 7");
-      command = 7;
+    case 9: //1001 검지 중지 약지 
+     // Serial.println("Command: 9");
+      command = 9;
       break;
 
     case 8: //1000 새끼손가락
@@ -232,7 +230,7 @@ void loop() {
   determineCommand(); //상태 판단 
   
   long now = millis();
-  if (now - lastMsg > 20) {
+  if (now - lastMsg > 1) {
     lastMsg = now;
 
     char commandStr[3]; 
@@ -240,5 +238,6 @@ void loop() {
 
     
     client.publish("esp32/sensor1", commandStr); //바꾼 command 문자열을 전송함
+    delay(500);
   }
 }
